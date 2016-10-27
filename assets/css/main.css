@@ -1,0 +1,414 @@
+@charset "UTF-8";
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background: #f3f0e7;
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;;
+  font-size: 1.5rem;
+  font-weight: 600;
+  overflow: hidden;
+}
+
+a:focus, a:hover {
+  text-decoration: none;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+}
+
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus {
+  outline: none;
+}
+
+.bg-red {
+  background: #d31145;
+}
+
+.text-red {
+  color: #d31145;
+}
+
+.text-red-darker {
+  color: #3d0012;
+}
+
+.btn-red {
+  width: 100%;
+  border-radius: 5rem;
+  background: #d31145;
+  color: #fff;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.page {
+  overflow: hidden;
+}
+
+.rst-page {
+  padding: 0 2rem;
+  background: #fff;
+}
+
+.container {
+  padding: 1.5rem 1.5rem 0 1.5rem;
+}
+
+@media screen and (min-width: 375px) {
+  .container {
+    margin-bottom: .5rem;
+  }
+}
+
+.container-title {
+  margin-bottom: .7rem;
+  color: #948d73;
+  font-size: 1.5rem;
+}
+
+@media screen and (min-width: 375px) {
+  .container-title {
+    margin-bottom: 1.2rem;
+    font-size: 1.7rem;
+  }
+}
+
+.form-control {
+  border-radius: 0;
+  font-size: 1.5rem;
+}
+
+.form-control,
+.form-control:focus {
+  color: #3d0012;
+}
+
+input.form-control {
+  padding: .75rem;
+}
+
+select.form-control {
+  height: 3.2rem !important;
+}
+
+.text-indent {
+  margin-left: 2.6rem;
+}
+
+.arrow-container {
+  position: absolute;
+  width: 2.8rem;
+  height: 2.8rem;
+  overflow: hidden;
+}
+
+.arrow {
+  position: absolute;
+  top: .4rem;
+  left: .4rem;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid transparent;
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg); /* IE 9 */
+  -moz-transform: rotate(45deg); /* Firefox */
+  -webkit-transform: rotate(45deg); /* Safari 和 Chrome */
+  -o-transform: rotate(45deg); /* Opera */
+  /*-moz-box-shadow: 0 0 10px 0 #999;*/
+  /*-webkit-box-shadow: 0 0 10px 0 #999;*/
+  /*box-shadow: 0 0 10px 0 #999;*/
+}
+
+#pages {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  height: 60px;
+  padding: 10px 1rem;
+  color: #fff;
+  font-size: 1.5rem;
+  text-align: center;
+  line-height: 40px;
+}
+
+@media screen and (min-width: 375px) {
+  .header {
+    font-size: 1.7rem;
+  }
+}
+
+.header > .logo {
+  display: block;
+  float: left;
+  width: 40px;
+  height: 40px;
+}
+
+.header > .logo > img {
+  width: 100%;
+}
+
+.gender-slt {
+  display: none;
+  position: relative;
+  float: left;
+  width: 50%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.gender-slt > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.gender-slt.active > img {
+  top: -100%;
+}
+
+.amount-container {
+  position: relative;
+}
+
+.amount-container > .summary {
+  position: absolute;
+  top: .6rem;
+  right: .75rem;
+}
+
+.btn-calc {
+  /*width: 100%;*/
+  /*border-radius: 5rem;*/
+  /*font-size: 1.7rem;*/
+}
+
+.custom-modal-elm {
+  display: none;
+  position: fixed;
+}
+
+.mask {
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: .5;
+}
+
+.custom-modal {
+  z-index: 21;
+  top: 30%;
+  left: 5%;
+  width: 90%;
+  height: auto;
+  padding: 2rem 1.5rem;
+  background: #fff;
+}
+
+.modal-content-container {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+@media screen and (min-width: 375px) {
+  .modal-content-container {
+    font-size: 1.7rem;
+  }
+}
+
+.calc-rst {
+  position: relative;
+  margin: 0 -2rem;
+  padding: 1.7rem 2rem 1rem 2rem;
+  background: #dfd7c2;
+}
+
+.calc-rst > .arrow-container {
+  height: 1.4rem;
+}
+
+.calc-rst > .arrow-container > .arrow {
+  top: -1.2rem;
+}
+
+.calc-rst > .arrow-container:nth-child(1) {
+  top: 0;
+  background: #dfd7c2;
+}
+
+.calc-rst > .arrow-container:nth-child(1) > .arrow {
+  background: #f3f0e7;
+}
+
+.calc-rst > .arrow-container:nth-child(2) {
+  bottom: -1.4rem;
+  background: #fff;
+}
+
+.calc-rst > .arrow-container:nth-child(2) > .arrow {
+  background: #dfd7c2;
+}
+
+.calc-rst-title,
+.bonus-title {
+  position: relative;
+  z-index: 11;
+  width: 11rem;
+  margin: auto;
+  margin-bottom: 1rem;
+  background: #dfd7c2;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.calc-rst > .divider,
+.bonus-container > .divider {
+  position: absolute;
+  z-index: 10;
+  top: 2.7rem;
+  width: 100%;
+  height: 1px;
+  margin-left: -2rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+.calc-rst > .rst-info {
+  margin-bottom: 0;
+  font-size: 1.6rem;
+}
+
+.calc-rst > .rst-info > .rst-price {
+  font-size: 3rem;
+}
+
+.bonus-container {
+  position: relative;
+  margin: 0 -2rem;
+  padding: 2rem 2rem 0 2rem;
+  margin-bottom: 2rem;
+}
+
+.bonus-title {
+  background: #fff;
+}
+
+.bonus-container > .divider {
+  top: 3rem;
+  background: #ddd;
+}
+
+.bonus-age-slt > .btn-age {
+  display: inline-block;
+  margin-right: 1rem;
+  padding: 1rem 1.4rem;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #999;
+}
+
+.bonus-age-slt > .btn-age.active {
+  display: inline-block;
+  border: 1px solid #d31145;
+  background: #d31145;
+  color: #fff;
+}
+
+.account-value-container {
+  position: relative;
+  margin-bottom: .6rem;
+  padding: 1.7rem 1rem 1rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.account-value-container > .title {
+  position: absolute;
+  top: -1rem;
+  left: 0;
+  width: 100%;
+  font-size: 2.1rem;
+  text-align: center;
+}
+
+.account-value-container > .title > span {
+  display: inline-block;
+  width: 9rem;
+  background: #fff;
+  text-align: center;
+}
+
+#future-rst-page > .account-value-container {
+  padding: 1.5rem 1rem 1rem;
+}
+
+#future-rst-page > .account-value-container > .title {
+  top: -.7rem;
+  font-size: 1.4rem;
+}
+
+#future-rst-page > .account-value-container > .title > span {
+  width: 17rem;
+}
+
+.account-value-container > h4 {
+  font-size: 1.3rem;
+}
+
+.account-value-container > .value {
+  font-size: 4rem;
+}
+
+.account-value-container > .value > small {
+  font-size: 1.4rem;
+}
+
+.remark {
+  margin-bottom: .7rem;
+  color: #999;
+  font-size: 1.3rem;
+  text-align: left;
+}
+
+@media screen and (min-width: 375px) {
+
+  .account-value-container,
+  .remark {
+    margin-bottom: 1rem;
+  }
+
+  .account-value-container > .title {
+    top: -1.2rem;
+    font-size: 2.5rem;
+  }
+
+  .account-value-container > .title > span {
+    width: 10rem;
+  }
+
+  .account-value-container > h4 {
+    font-size: 1.5rem;
+  }
+
+  .account-value-container > .value > small {
+    font-size: 1.7rem;
+  }
+
+  .remark {
+    font-size: 1.5rem;
+  }
+}

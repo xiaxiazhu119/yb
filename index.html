@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>友邦保险</title>
+  <link href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="pages">
+
+  <div id="_classic">
+
+    <!-- classic form page start -->
+
+    <div class="page form-page" id="classic-form-page">
+
+      <div class="header bg-red">
+        <a href="javascript:;" class="logo" title="友邦保险">
+          <img src="assets/images/logo.jpg" alt="友邦保险">
+        </a>
+        传世经典悦享版终身寿险（分红型）
+      </div>
+
+      <div class="container">
+        <h4 class="container-title">请选择被保险人性别</h4>
+        <div>
+          <a href="javascript:;" class="gender-slt" data-gender="male">
+            <img src="assets/images/gender-male.jpg" alt="">
+          </a>
+          <a href="javascript:;" class="gender-slt" data-gender="female">
+            <img src="assets/images/gender-female.jpg" alt="">
+          </a>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
+      <div class="container">
+        <h4 class="container-title">年龄</h4>
+        <select id="classic-age" class="form-control"></select>
+      </div>
+
+      <div class="container">
+        <h4 class="container-title">请输入保险金额
+          <small>（200万元起售，500万元上限）</small>
+        </h4>
+        <div class="amount-container">
+          <input type="text" id="classic-amount" class="form-control" maxlength="3" value="200">
+          <span class="summary text-red-darker">万元</span>
+        </div>
+      </div>
+
+      <div class="container">
+        <h4 class="container-title">交费年期
+          <small>(年)</small>
+        </h4>
+        <select id="classic-year" class="form-control"></select>
+      </div>
+
+      <div class="container">
+        <button id="btn-classic-calc" class="btn btn-lg btn-red btn-calc btn-page-scroll">点击试算</button>
+      </div>
+
+    </div>
+
+    <!-- classic form page end -->
+
+    <!-- classic rst page start -->
+
+    <div class="page rst-page" id="classic-rst-page">
+
+      <div class="calc-rst">
+
+        <span class="arrow-container">
+          <span class="arrow"></span>
+        </span>
+        <span class="arrow-container">
+          <span class="arrow"></span>
+        </span>
+
+        <h2 class="calc-rst-title text-red">试算结果</h2>
+        <div class="divider"></div>
+
+        <p class="rst-info text-red-darker">
+          年交保费：<span class="rst-price">99,999.99</span> 元
+        </p>
+        <p class="rst-info text-red-darker">
+          共<span class="text-indent"></span>计：<span class="rst-price">99,999.99</span> 元
+        </p>
+
+      </div>
+
+      <div class="bonus-container">
+
+        <h2 class="bonus-title text-red">红利演示</h2>
+        <div class="divider"></div>
+
+        <div class="bonus-age-slt">
+          当您&nbsp;
+          <a href="javascript:;" class="btn-age">60</a>
+          <a href="javascript:;" class="btn-age">80</a>
+        </div>
+
+      </div>
+
+      <div class="account-value-container">
+        <h3 class="title text-red">
+          <span>账户价值</span>
+        </h3>
+        <h4 class="text-red">保险金额+累计（中档）增值红利</h4>
+        <h2 class="value text-red-darker">3,123,123
+          <small>元</small>
+        </h2>
+      </div>
+
+      <p class="remark">本速查表不可替代产品建议书，不构成保险产品合同的一部分，仅供友邦保险公司内部人员参考使用。实际年度保险费请以保险合同为准，相关保险利益、责任免除及退保等重要事项以保险合同条款为准。</p>
+      <button id="btn-classic-convert" class="btn btn-lg btn-red btn-calc btn-page-scroll">点击此处，可转换为年金</button>
+
+    </div>
+
+    <!-- classic rst page end -->
+
+  </div>
+
+  <div id="_future">
+
+    <!-- future form page start -->
+
+    <div class="page form-page" id="future-form-page">
+
+      <div class="header bg-red">
+        <a href="javascript:;" class="logo" title="友邦保险">
+          <img src="assets/images/logo.jpg" alt="友邦保险">
+        </a>
+        守富未来年金保险（分红型）
+      </div>
+
+      <div class="container">
+        <h4 class="container-title">请选择被保险人性别</h4>
+        <div>
+          <a href="javascript:;" class="gender-slt" data-gender="male">
+            <img src="assets/images/gender-male.jpg" alt="">
+          </a>
+          <a href="javascript:;" class="gender-slt" data-gender="female">
+            <img src="assets/images/gender-female.jpg" alt="">
+          </a>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
+      <div class="container">
+        <h4 class="container-title">转换为年金的年龄</h4>
+        <select id="future-age" class="form-control"></select>
+      </div>
+
+      <div class="container">
+        <h4 class="container-title">传世经典转换保额（万元）</h4>
+        <div class="amount-container">
+          <input type="text" id="future-amount" class="form-control" maxlength="3" value="200">
+          <span class="summary text-red-darker">万元</span>
+        </div>
+      </div>
+
+      <div class="container">
+        <button id="btn-future-calc" class="btn btn-lg btn-red btn-calc btn-page-scroll">点击试算</button>
+      </div>
+
+
+    </div>
+
+    <!-- future form page end -->
+
+    <!-- future rst page start -->
+
+    <div class="page rst-page" id="future-rst-page">
+
+
+      <div class="calc-rst">
+
+        <span class="arrow-container">
+          <span class="arrow"></span>
+        </span>
+        <span class="arrow-container">
+          <span class="arrow"></span>
+        </span>
+
+        <h2 class="calc-rst-title text-red">试算结果</h2>
+        <div class="divider"></div>
+
+        <p class="rst-info text-red-darker text-xs-center">
+          守富未来初算年金金额<br>
+          <span class="rst-price">99,999.99</span> 元/年
+        </p>
+
+      </div>
+
+      <div class="bonus-container">
+
+        <h2 class="bonus-title text-red">红利演示</h2>
+        <div class="divider"></div>
+
+        <div class="bonus-age-slt">
+          当您&nbsp;
+          <a href="javascript:;" class="btn-age">60</a>
+          <a href="javascript:;" class="btn-age">80</a>
+        </div>
+
+      </div>
+
+      <div class="account-value-container">
+        <h3 class="title text-red">
+          <span>累计（中档）现金红利 含利息</span>
+        </h3>
+        <h2 class="value text-red-darker">3,123,123
+          <small>元</small>
+        </h2>
+      </div>
+
+      <p class="remark">本速查表不可替代产品建议书，不构成保险产品合同的一部分，仅供友邦保险公司内部人员参考使用。实际年度保险费请以保险合同为准，相关保险利益、责任免除及退保等重要事项以保险合同条款为准。</p>
+
+    </div>
+
+    <!-- future rst page end -->
+
+  </div>
+
+</div>
+
+<div class="custom-modal custom-modal-elm">
+  <div class="modal-content-container"></div>
+  <button type="button" class="btn btn-lg btn-red custom-close">确定</button>
+</div>
+<div class="mask custom-modal-elm"></div>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="assets/js/index.js"></script>
+</body>
+</html>
