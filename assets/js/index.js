@@ -3,6 +3,24 @@
 
   $(function () {
 
+    Number.prototype.toMoney = function (hasDecimal) {
+      hasDecimal = typeof hasDecimal === undefined ? true : hasDecimal;
+
+      var v   = this.toFixed(2) + '';
+      var arr = v.split('.');
+      var i   = arr[0].split('').reverse();
+      var l   = i.length;
+      var is  = '';
+
+      for (var z = 0; z < l; z++) {
+        is += i[z] + ((z + 1) % 3 == 0 && (z + 1) != l ? ',' : '');
+      }
+      var _i = is.split('').reverse().join('')
+      if (hasDecimal)
+        return _i + '.' + arr[1];
+      return _i;
+    };
+
     var numReg = new RegExp("^[0-9]*$");
 
     var windowWidth  = $(window).width();
@@ -58,7 +76,8 @@
 
     initArrowStyle();
 
-    initSltBtn('.btn-age');
+    initSltBtn('.btn-age', bonusAgeSltEvent);
+    // $('.btn-age:even').click();
 
     $('.mask,.custom-close').on('click', function () {
       hideModal();
@@ -76,8 +95,37 @@
         return false;
       }
 
+      var g = $('.classic-gender-slt.active').data('gender'),
+          a = $('#classic-age').val(),
+          o = getSltedOption('#classic-year');
+
+      var r = Number(classicData.fee[g][a][o.index]);
+
+      var feePerYear = Number((amount * r * 10).toFixed(2)),
+          totalFee   = feePerYear * o.value;
+
+      var fpys = feePerYear.toMoney(),
+          tfs  = totalFee.toMoney();
+
+      console.log('rate: ', r, '\nfee per year: ' + fpys, '\ntotal: ' + tfs);
+
+      /*******************************************************************************
+       * 经典 - 试算结果
+       ******************************************************************************/
+      $('#classic-fee-per-year').html(fpys);
+      $('#classic-fee-total').html(tfs);
+
+      /*******************************************************************************
+       * 经典 - 账户价值
+       ******************************************************************************/
+      // var leverage = Math.round(amount * 1000 / feePerYear);
+
+      //calcClassicValue();
+      $('.classic-age-slt:even').click();
+
       scrollPage($this);
-    });
+
+    }).click();
 
     /*****************************************************************************************
      * 经典转换
@@ -110,15 +158,8 @@
       scrollPage($this);
     });
 
-    var _ = {
-      a: 'a',
-      b: 'b',
-      c: '1'
-    };
 
-    console.log('asdfsafd:', _['a']);
-    console.log('asdfsafd:', _['b']);
-    console.log('asdfsafd:', _['c']);
+    // console.log(classicData.value);
 
 
     /******************************************************************************************************************
@@ -178,12 +219,17 @@
       $arrow.css('left', ((windowWidth - $arrow.width()) / 2) + 'px');
     }
 
-    function initSltBtn(elm) {
+    function initSltBtn(elm, ext) {
 
       $(elm).on('click', function () {
         var $this = $(this);
         if ($this.hasClass('active')) return false;
         $this.addClass('active').siblings(elm).removeClass('active');
+
+        if (ext) {
+          ext($this);
+        }
+
       });
     }
 
@@ -211,6 +257,58 @@
         $('.modal-content-container').html(msg);
       }
       $('.custom-modal-elm').fadeIn();
+    }
+
+    function getSltedOption(elm) {
+      var $opt      = $(elm).find('option');
+      var $sltedOpt = $(elm).find('option:selected');
+      return {
+        index: $opt.index($sltedOpt),
+        value: Number($sltedOpt.prop('value'))
+      };
+    }
+
+
+    /******************************************************************************************************************
+     * calc functions
+     *****************************************************************************************************************/
+
+    function bonusAgeSltEvent(target) {
+      var type = target.data('type');
+      if (type === 'c') {
+        calcClassicValue();
+      }
+    }
+
+    function calcClassicValue() {
+
+      var p  = $.trim($('#classic-amount').val()),
+          g  = $('.classic-gender-slt.active').data('gender'),
+          a  = $('#classic-age').val(),
+          o  = getSltedOption('#classic-year'),
+          ba = Number($('.classic-age-slt.active').data('v'));    //红利演示所选择的年龄
+
+      var t = o.index + 1;
+
+      g = g.toUpperCase();
+
+      var d = classicData.value[g + t][a];
+      // console.log(d);
+
+      var currentAge = a;
+
+      var tt = 0;
+      while (currentAge <= ba) {
+        var ageDiff = currentAge - a + 1,
+            r       = d[ageDiff];
+        var v       = Math.round(r * 2000);
+        console.log(currentAge, a, ageDiff, r, v);
+        tt += v;
+        currentAge++;
+      }
+      console.log(tt);
+
+      $('#classic-value').html(tt.toMoney(false));
     }
 
   });

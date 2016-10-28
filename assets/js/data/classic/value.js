@@ -32,13 +32,19 @@ function deal(str, bian) {
 	return num
 
 }
-var data = {}
+
+var value = {};
+
+if (typeof window.classicData === 'undefined')
+	window.classicData = {};
 
 function st() {
 	for (var i = 1; i < 9; i++) {
 		var bj = (i % 4) == 0 ? 51 : 56
-		data['M' + i] = deal(eval('num' + i), bj)
-		data['W' + i] = deal(eval('wnum' + i), bj)
+		value['M' + i] = deal(eval('num' + i), bj)
+		value['F' + i] = deal(eval('wnum' + i), bj)
 	}
+
+	classicData.value = value;
 }
 st()

@@ -27,10 +27,10 @@
       <div class="container">
         <h4 class="container-title">请选择被保险人性别</h4>
         <div>
-          <a href="javascript:;" class="gender-slt" data-gender="male">
+          <a href="javascript:;" class="gender-slt classic-gender-slt" data-gender="m">
             <img src="assets/images/gender-male.jpg" alt="">
           </a>
-          <a href="javascript:;" class="gender-slt" data-gender="female">
+          <a href="javascript:;" class="gender-slt classic-gender-slt" data-gender="f">
             <img src="assets/images/gender-female.jpg" alt="">
           </a>
           <div class="clearfix"></div>
@@ -84,10 +84,10 @@
         <div class="divider"></div>
 
         <p class="rst-info text-red-darker">
-          年交保费：<span class="rst-price">99,999.99</span> 元
+          年交保费：<span id="classic-fee-per-year" class="rst-price">99,999.99</span> 元
         </p>
         <p class="rst-info text-red-darker">
-          共<span class="text-indent"></span>计：<span class="rst-price">99,999.99</span> 元
+          共<span class="text-indent"></span>计：<span class="rst-price" id="classic-fee-total">99,999.99</span> 元
         </p>
 
       </div>
@@ -99,8 +99,8 @@
 
         <div class="bonus-age-slt">
           当您&nbsp;
-          <a href="javascript:;" class="btn-age">60</a>
-          <a href="javascript:;" class="btn-age">80</a>
+          <a href="javascript:;" class="btn-age classic-age-slt" data-v="60" data-type="c">60</a>
+          <a href="javascript:;" class="btn-age classic-age-slt" data-v="80" data-type="c">80</a>
         </div>
 
       </div>
@@ -110,7 +110,8 @@
           <span>账户价值</span>
         </h3>
         <h4 class="text-red">保险金额+累计（中档）增值红利</h4>
-        <h2 class="value text-red-darker">3,123,123
+        <h2 class="value text-red-darker">
+          <span id="classic-value">3,123,123</span>
           <small>元</small>
         </h2>
       </div>
@@ -140,10 +141,10 @@
       <div class="container">
         <h4 class="container-title">请选择被保险人性别</h4>
         <div>
-          <a href="javascript:;" class="gender-slt" data-gender="male">
+          <a href="javascript:;" class="gender-slt future-gender-slt" data-gender="m">
             <img src="assets/images/gender-male.jpg" alt="">
           </a>
-          <a href="javascript:;" class="gender-slt" data-gender="female">
+          <a href="javascript:;" class="gender-slt future-gender-slt" data-gender="f">
             <img src="assets/images/gender-female.jpg" alt="">
           </a>
           <div class="clearfix"></div>
@@ -213,7 +214,8 @@
         <h3 class="title text-red">
           <span>累计（中档）现金红利 含利息</span>
         </h3>
-        <h2 class="value text-red-darker">3,123,123
+        <h2 class="value text-red-darker">
+          <span>3,123,123</span>
           <small>元</small>
         </h2>
       </div>
@@ -235,6 +237,8 @@
 <div class="mask custom-modal-elm"></div>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="assets/js/data/classic/fee.js"></script>
+<script src="assets/js/data/classic/value.js"></script>
 <script src="assets/js/index.js"></script>
 </body>
 </html>
