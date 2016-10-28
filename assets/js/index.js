@@ -95,7 +95,7 @@
       var $this = $(this);
 
       var classicAmount = $.trim($('#classic-amount').val());
-      var futureAmount = $.trim($('#future-amount').val());
+      var futureAmount  = $.trim($('#future-amount').val());
 
       if (!numReg.test(futureAmount)) {
         showModal('请输入正确的转换保额');
@@ -109,6 +109,16 @@
 
       scrollPage($this);
     });
+
+    var _ = {
+      a: 'a',
+      b: 'b',
+      c: '1'
+    };
+
+    console.log('asdfsafd:', _['a']);
+    console.log('asdfsafd:', _['b']);
+    console.log('asdfsafd:', _['c']);
 
 
     /******************************************************************************************************************
