@@ -40,6 +40,8 @@
     };
     var convertAgeStart = convertAgeRange.min;
 
+    var _sumCashBonusRate = 1.03;
+
     /******************************************************************************************************************
      *
      *
@@ -143,7 +145,7 @@
       var classicAge = Number($('#classic-age').val());
       var overRange  = (convertAgeRange.min - classicAge) < convertAgeOffset;
       if (overRange) {
-        convertAgeStart = classicAge + convertAgeOffset;
+        convertAgeStart = classicAge + convertAgeOffset + 1;
       }
 
       var checkConvertAge = function () {
@@ -209,18 +211,18 @@
       var valueAddedBonus  = calcValueBase(convertAmount, g, a, o, age - 1);
       //总退保金系数
       var rbscv_factorRate = RBCSV_factor[g][age];
-      console.log('上一年度累计增值红利:', valueAddedBonus, '\n总退保金系数(RBCSV_factor Rate):' + rbscv_factorRate);
+      //console.log('上一年度累积增值红利:', valueAddedBonus, '\n总退保金系数(RBCSV_factor Rate):' + rbscv_factorRate);
 
       //上一年度退保金（现金价值）率
       var surrenderValueRate = CSV[g + (o.index + 1)][a][age - a];
       //上一年度退保金（现金价值）
       var surrenderValue     = Number(classicAmount) * 10 * surrenderValueRate;
-      console.log('退保金（现金价值）率:', surrenderValueRate + '\n退保金（现金价值）:', surrenderValue);
+      //console.log('退保金（现金价值）率:', surrenderValueRate + '\n退保金（现金价值）:', surrenderValue);
 
       var futureAmount = Math.round((valueAddedBonus / 1000 * rbscv_factorRate + surrenderValue ) / PA30_GP[g][age] * (convertAmount / classicAmount) * 1000);
-      console.log('守富未来初算年金金额(元):', futureAmount);
+      //console.log('守富未来初算年金金额(元):', futureAmount);
 
-      $('#future-amount').html(futureAmount.toMoney());
+      $('#future-amount').html(futureAmount.toMoney()).data('amount', futureAmount);
 
       //return false;
       $('.future-age-slt:even').click();
@@ -380,6 +382,8 @@
       var type = target.data('type');
       if (type === 'c') {
         calcClassicValue();
+      } else {
+        calcCashBonus();
       }
     }
 
@@ -410,17 +414,80 @@
 
       while (ca <= bonusAge) {
         var ad = ca - age + 1,
-            r  = d[ad],
-            v  = Math.round(r * amount * 10);
+            r  = d[ad];
 
-        console.log(ca, age, ad, r, v);
+        // var v  = Math.round(r * amount * 10);
+        var v  = r * amount * 10;
+
+        //console.log(ca, age, ad, r, v);
 
         rst += v;
         ca++;
       }
 
-      console.log('calc value base rst:', rst);
+      rst = Math.round(rst);
+
+      //console.log('calc value base rst:', rst);
       return rst;
+    }
+
+    /*************************************************************************************************
+     * 计算守富未来累计现金红利
+     ************************************************************************************************/
+    function calcCashBonus() {
+
+      //累积现金红利 = 上一年度累积现金红利 * 1.03 + 当年度现金红利
+      //当年度现金红利 = (初算年金 - 1) / 1000 * PA30_DivM系数
+
+      var futureAge = Number($('.future-age-slt.active').data('v')),
+          gender    = $('.future-gender-slt.active').data('gender'),
+          age       = Number($('#future-age').val()),
+          ad        = futureAge - age;
+
+      var c = age;
+
+      var lastYearCashBonus = 0;
+
+      while (c <= futureAge) {
+        var diff = ad - (futureAge - c);
+
+        var currentYearCashBonus = calcCurrentYearCashBonus(gender, age, diff + 1);
+        if (diff === 0) {
+          lastYearCashBonus = currentYearCashBonus;
+        } else {
+          lastYearCashBonus = lastYearCashBonus * _sumCashBonusRate + currentYearCashBonus;
+        }
+
+        //lastYearCashBonus = Math.round(lastYearCashBonus);
+
+        console.log('age:', c, ' currentYearCashBonus:', currentYearCashBonus, ' lastYearCashBonus:', lastYearCashBonus);
+        c++;
+      }
+
+      lastYearCashBonus = Math.round(lastYearCashBonus);
+
+      // console.log('lastYearCashBonus:', lastYearCashBonus);
+
+      $('#cash-bonus').html(lastYearCashBonus.toMoney());
+
+    }
+
+    /*************************************************************************************************
+     * 计算当年度现金红利系数
+     ************************************************************************************************/
+    function calcCurrentYearCashBonus(gender, age, year) {
+
+      var currentYearCashBonusRate = PA30_DivM[gender][age][year];
+      //console.log('当年度现金红利系数:', currentYearCashBonusRate);
+
+      var futureAmount = Number($('#future-amount').data('amount')) - 1;
+
+      // var currentYearCashBonus     = Math.round(futureAmount / 1000 * currentYearCashBonusRate);
+      var currentYearCashBonus = futureAmount / 1000 * currentYearCashBonusRate;
+
+      //console.log('当年度现金红利:', currentYearCashBonus);
+
+      return currentYearCashBonus;
     }
 
     function initFutureAge() {
