@@ -32,6 +32,14 @@
     $genderSlt.show().height($genderSlt.width());
     $('.gender-slt:even').click();
 
+    var convertAgeOffset = 10;
+
+    var convertAgeRange = {
+      min: 60,
+      max: 70
+    };
+    var convertAgeStart = convertAgeRange.min;
+
     /******************************************************************************************************************
      *
      *
@@ -132,7 +140,24 @@
     $('#btn-classic-convert').on('click', function () {
       var $this = $(this);
 
-      scrollPage($this);
+      var classicAge = Number($('#classic-age').val());
+      var overRange  = (convertAgeRange.min - classicAge) < convertAgeOffset;
+      if (overRange) {
+        convertAgeStart = classicAge + convertAgeOffset;
+      }
+
+      var checkConvertAge = function () {
+        if (overRange) {
+          var msg = '';
+          msg += '<p>• 被保险人转换年金保险时必须在主保单生效<span class="text-red">' + convertAgeOffset + '年后</span></p>';
+          msg += '<p>• 年龄选择范围：<span class="text-red">' + convertAgeRange.min + '~' + convertAgeRange.max + '（周岁）</span></p>';
+          showModal(msg);
+        }
+      };
+
+      initFutureAge();
+
+      scrollPage($this, checkConvertAge);
     });
 
     /******************************************************************************************************************
@@ -152,12 +177,6 @@
      *
      ******************************************************************************************************************/
 
-    var futureAgeRange = {
-      min: 60,
-      max: 70
-    };
-
-    initFutureAge();
 
     /*****************************************************************************************
      * 守富试算
@@ -166,7 +185,7 @@
       var $this = $(this);
 
       var classicAmount = $.trim($('#classic-amount').val());
-      var convertAmount  = $.trim($('#convert-amount').val());
+      var convertAmount = $.trim($('#convert-amount').val());
 
       if (!numReg.test(convertAmount)) {
         showModal('请输入正确的转换保额');
@@ -204,6 +223,7 @@
       $('#future-amount').html(futureAmount.toMoney());
 
       //return false;
+      $('.future-age-slt:even').click();
 
       scrollPage($this);
     });
@@ -299,7 +319,7 @@
     /*************************************************************************************************
      * 滚动页面
      ************************************************************************************************/
-    function scrollPage(target) {
+    function scrollPage(target, callback) {
 
       var $btn = $('.btn-page-scroll');
 
@@ -308,6 +328,10 @@
 
       $('#pages').animate({
         'top': '-' + index + '00%'
+      }, 500, function () {
+        if (callback) {
+          callback();
+        }
       });
 
     }
@@ -400,8 +424,8 @@
     }
 
     function initFutureAge() {
-      var current = futureAgeRange.min;
-      while (current <= futureAgeRange.max) {
+      var current = convertAgeStart;
+      while (current <= convertAgeRange.max) {
         $('#future-age').append($('<option></option>').text(current + '岁').prop('value', current));
         current++;
       }
