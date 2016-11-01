@@ -28,22 +28,9 @@
     var numReg = new RegExp("^[0-9]*$");
 
     initSltBtn('.gender-slt');
-    /*
-
-     $('.gender-slt').on('click', function () {
-     var $this = $(this);
-     if ($this.hasClass('active')) return false;
-
-     // console.log(index);
-
-     $this.addClass('active').siblings('.gender-slt').removeClass('active');
-     // $this.addClass('active').find('img').prop('src', )
-     // $this.siblings('.gender-slt').removeClass('active');
-
-
-     })
-     */
-    $('.gender-slt').show().height($('.gender-slt').width()).eq(0).click();
+    var $genderSlt = $('.gender-slt');
+    $genderSlt.show().height($genderSlt.width());
+    $('.gender-slt:even').click();
 
     /******************************************************************************************************************
      *
@@ -111,7 +98,7 @@
           a = $('#classic-age').val(),
           o = getSltedOption('#classic-year');
 
-      var r = Number(classicData.fee[g][a][o.index]);
+      var r = Number(GP[g][a][o.index]);
 
       feePerYear = Number((amount * r * 10).toFixed(2));
       totalFee   = feePerYear * o.value;
@@ -179,17 +166,44 @@
       var $this = $(this);
 
       var classicAmount = $.trim($('#classic-amount').val());
-      var futureAmount  = $.trim($('#future-amount').val());
+      var convertAmount  = $.trim($('#convert-amount').val());
 
-      if (!numReg.test(futureAmount)) {
+      if (!numReg.test(convertAmount)) {
         showModal('请输入正确的转换保额');
         return false;
       }
 
-      if (futureAmount > classicAmount) {
+      if (convertAmount > classicAmount) {
         showModal('转换保额<span class="text-red">不能超过</span>转换时终身寿险的现金价值');
         return false;
       }
+
+      var age = Number($('#future-age').val()),
+          a   = $('#classic-age').val(),
+          g   = $('.future-gender-slt.active').data('gender'),
+          o   = getSltedOption('#classic-year');
+
+
+      //守富未来初算年金金额(元) = (上一年度累计增值红利 / 1000 * 上一年度RBCSV_factor系数 + 上一年度退保金（现金价值）) / PA30GP系数 * (转换保额 / 保险金额) * 1000
+
+      //上一年度累计增值红利
+      var valueAddedBonus  = calcValueBase(convertAmount, g, a, o, age - 1);
+      //总退保金系数
+      var rbscv_factorRate = RBCSV_factor[g][age];
+      console.log('上一年度累计增值红利:', valueAddedBonus, '\n总退保金系数(RBCSV_factor Rate):' + rbscv_factorRate);
+
+      //上一年度退保金（现金价值）率
+      var surrenderValueRate = CSV[g + (o.index + 1)][a][age - a];
+      //上一年度退保金（现金价值）
+      var surrenderValue     = Number(classicAmount) * 10 * surrenderValueRate;
+      console.log('退保金（现金价值）率:', surrenderValueRate + '\n退保金（现金价值）:', surrenderValue);
+
+      var futureAmount = Math.round((valueAddedBonus / 1000 * rbscv_factorRate + surrenderValue ) / PA30_GP[g][age] * (convertAmount / classicAmount) * 1000);
+      console.log('守富未来初算年金金额(元):', futureAmount);
+
+      $('#future-amount').html(futureAmount.toMoney());
+
+      //return false;
 
       scrollPage($this);
     });
@@ -356,29 +370,33 @@
           o  = getSltedOption('#classic-year'),
           ba = Number($('.classic-age-slt.active').data('v'));    //红利演示所选择的年龄
 
-      //console.log('p:',p,'\ng:',g,'\na:',a,'\no:',o,'\nba:',ba);
-
-      var t = o.index + 1;
-
-      g = g.toUpperCase();
-
-      var d = classicData.value[g + t][a];
-      // console.log(d);
-
-      var currentAge = a;
-
-      bonus = 0;
-      while (currentAge <= ba) {
-        var ageDiff = currentAge - a + 1,
-            r       = d[ageDiff];
-        var v       = Math.round(r * p * 10);
-        console.log(currentAge, a, ageDiff, r, v);
-        bonus += v;
-        currentAge++;
-      }
-      console.log(bonus);
+      bonus = calcValueBase(p, g, a, o, ba);
 
       $('#classic-value').html(bonus.toMoney(false));
+    }
+
+    function calcValueBase(amount, gender, age, yearObj, bonusAge) {
+
+      //gender = gender.toUpperCase();
+
+      var t   = yearObj.index + 1,
+          d   = DivM[gender + t][age],
+          ca  = age,
+          rst = 0;
+
+      while (ca <= bonusAge) {
+        var ad = ca - age + 1,
+            r  = d[ad],
+            v  = Math.round(r * amount * 10);
+
+        console.log(ca, age, ad, r, v);
+
+        rst += v;
+        ca++;
+      }
+
+      console.log('calc value base rst:', rst);
+      return rst;
     }
 
     function initFutureAge() {

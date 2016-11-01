@@ -27,10 +27,10 @@
       <div class="container">
         <h4 class="container-title">请选择被保险人性别</h4>
         <div>
-          <a href="javascript:;" class="gender-slt classic-gender-slt" data-gender="m">
+          <a href="javascript:;" class="gender-slt classic-gender-slt" data-gender="M">
             <img src="assets/images/gender-male.jpg" alt="">
           </a>
-          <a href="javascript:;" class="gender-slt classic-gender-slt" data-gender="f">
+          <a href="javascript:;" class="gender-slt classic-gender-slt" data-gender="F">
             <img src="assets/images/gender-female.jpg" alt="">
           </a>
           <div class="clearfix"></div>
@@ -141,10 +141,10 @@
       <div class="container">
         <h4 class="container-title">请选择被保险人性别</h4>
         <div>
-          <a href="javascript:;" class="gender-slt future-gender-slt" data-gender="m">
+          <a href="javascript:;" class="gender-slt future-gender-slt" data-gender="M">
             <img src="assets/images/gender-male.jpg" alt="">
           </a>
-          <a href="javascript:;" class="gender-slt future-gender-slt" data-gender="f">
+          <a href="javascript:;" class="gender-slt future-gender-slt" data-gender="F">
             <img src="assets/images/gender-female.jpg" alt="">
           </a>
           <div class="clearfix"></div>
@@ -159,7 +159,7 @@
       <div class="container">
         <h4 class="container-title">传世经典转换保额（万元）</h4>
         <div class="amount-container">
-          <input type="text" id="future-amount" class="form-control" maxlength="3" value="200">
+          <input type="text" id="convert-amount" class="form-control" maxlength="3" value="200">
           <span class="summary text-red-darker">万元</span>
         </div>
       </div>
@@ -192,7 +192,7 @@
 
         <p class="rst-info text-red-darker text-xs-center">
           守富未来初算年金金额<br>
-          <span class="rst-price">99,999.99</span> 元/年
+          <span id="future-amount" class="rst-price">99,999.99</span> 元/年
         </p>
 
       </div>
@@ -237,8 +237,11 @@
 <div class="mask custom-modal-elm"></div>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<script src="assets/js/data/classic/fee.js"></script>
-<script src="assets/js/data/classic/value.js"></script>
+<script src="assets/js/data/GP.js"></script>
+<script src="assets/js/data/DivM.js"></script>
+<script src="assets/js/data/RBCSV_factor.js"></script>
+<script src="assets/js/data/CSV.js"></script>
+<script src="assets/js/data/PA30_GP.js"></script>
 <script src="assets/js/index.js"></script>
 </body>
 </html>
