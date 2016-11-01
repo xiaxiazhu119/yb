@@ -6,7 +6,7 @@ html {
 
 body {
   background: #f3f0e7;
-  font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;;
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
   overflow: hidden;
@@ -41,7 +41,8 @@ a:focus, a:hover {
   color: #3d0012;
 }
 
-.btn-red {
+.btn-red,
+.btn-red:focus {
   width: 100%;
   border-radius: 5rem;
   background: #d31145;

@@ -15,11 +15,16 @@
       for (var z = 0; z < l; z++) {
         is += i[z] + ((z + 1) % 3 == 0 && (z + 1) != l ? ',' : '');
       }
-      var _i = is.split('').reverse().join('')
+      var _i = is.split('').reverse().join('');
       if (hasDecimal)
         return _i + '.' + arr[1];
       return _i;
     };
+
+
+    var feePerYear = 0,   //年交保费
+        totalFee   = 0,   //共计
+        bonus      = 0;   //红利
 
     var numReg = new RegExp("^[0-9]*$");
 
@@ -101,13 +106,13 @@
 
       var r = Number(classicData.fee[g][a][o.index]);
 
-      var feePerYear = Number((amount * r * 10).toFixed(2)),
-          totalFee   = feePerYear * o.value;
+      feePerYear = Number((amount * r * 10).toFixed(2));
+      totalFee   = feePerYear * o.value;
 
       var fpys = feePerYear.toMoney(),
           tfs  = totalFee.toMoney();
 
-      console.log('rate: ', r, '\nfee per year: ' + fpys, '\ntotal: ' + tfs);
+      //console.log('amount:',amount + '\nrate: ', r, '\nfee per year: ' + fpys, '\ntotal: ' + tfs);
 
       /*******************************************************************************
        * 经典 - 试算结果
@@ -125,7 +130,7 @@
 
       scrollPage($this);
 
-    }).click();
+    });
 
     /*****************************************************************************************
      * 经典转换
@@ -288,6 +293,8 @@
           o  = getSltedOption('#classic-year'),
           ba = Number($('.classic-age-slt.active').data('v'));    //红利演示所选择的年龄
 
+      //console.log('p:',p,'\ng:',g,'\na:',a,'\no:',o,'\nba:',ba);
+
       var t = o.index + 1;
 
       g = g.toUpperCase();
@@ -297,18 +304,18 @@
 
       var currentAge = a;
 
-      var tt = 0;
+      bonus = 0;
       while (currentAge <= ba) {
         var ageDiff = currentAge - a + 1,
             r       = d[ageDiff];
-        var v       = Math.round(r * 2000);
+        var v       = Math.round(r * p * 10);
         console.log(currentAge, a, ageDiff, r, v);
-        tt += v;
+        bonus += v;
         currentAge++;
       }
-      console.log(tt);
+      console.log(bonus);
 
-      $('#classic-value').html(tt.toMoney(false));
+      $('#classic-value').html(bonus.toMoney(false));
     }
 
   });
