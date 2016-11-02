@@ -42,6 +42,8 @@
 
     var _sumCashBonusRate = 1.03;
 
+    var overRange = false;
+
     /******************************************************************************************************************
      *
      *
@@ -143,9 +145,9 @@
       var $this = $(this);
 
       var classicAge = Number($('#classic-age').val());
-      var overRange  = (convertAgeRange.min - classicAge) < convertAgeOffset;
+      overRange      = (convertAgeRange.min - classicAge) < convertAgeOffset;
       if (overRange) {
-        convertAgeStart = classicAge + convertAgeOffset + 1;
+        convertAgeStart = classicAge + convertAgeOffset;
       }
 
       var checkConvertAge = function () {
@@ -225,7 +227,13 @@
       $('#future-amount').html(futureAmount.toMoney()).data('amount', futureAmount);
 
       //return false;
-      $('.future-age-slt:even').click();
+
+      if (overRange) {
+        $('.future-age-slt:odd').click();
+        $('.future-age-slt:even').off('click').addClass('disabled');
+      } else {
+        $('.future-age-slt:even').click();
+      }
 
       scrollPage($this);
     });
@@ -417,7 +425,7 @@
             r  = d[ad];
 
         // var v  = Math.round(r * amount * 10);
-        var v  = r * amount * 10;
+        var v = r * amount * 10;
 
         //console.log(ca, age, ad, r, v);
 

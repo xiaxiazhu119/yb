@@ -329,6 +329,10 @@ select.form-control {
   color: #fff;
 }
 
+.bonus-age-slt > .btn-age.disabled{
+  background: #ccc;
+}
+
 .account-value-container {
   position: relative;
   margin-bottom: .6rem;
