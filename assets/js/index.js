@@ -24,6 +24,7 @@
     var windowWidth  = $(window).width();
     var windowHeight = $(window).height();
     $('.page').height(windowHeight);
+    $('body').height(windowHeight * 4);
 
     var numReg = new RegExp("^[0-9]*$");
 
@@ -336,13 +337,17 @@
       var index = $btn.index(target);
       index++;
 
-      $('#pages').animate({
-        'top': '-' + index + '00%'
-      }, 500, function () {
-        if (callback) {
-          callback();
-        }
-      });
+      /*
+       $('#pages').animate({
+       'top': '-' + index + '00%'
+       }, 500, function () {
+       if (callback) {
+       callback();
+       }
+       });
+       */
+
+      $("html, body").animate({scrollTop: windowHeight * index}, 500);
 
     }
 
