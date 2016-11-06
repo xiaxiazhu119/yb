@@ -39,7 +39,7 @@
 
       <div class="container">
         <h4 class="container-title">请输入保险人年龄</h4>
-        <select id="age" class="form-control"></select>
+        <select id="classic-age" class="form-control"></select>
       </div>
 
       <div class="container">
@@ -47,7 +47,7 @@
           <small>（200万元起售，500万元上限）</small>
         </h4>
         <div class="amount-container">
-          <input type="text" id="amount" class="form-control" maxlength="3" value="200">
+          <input type="text" id="classic-amount" class="form-control" maxlength="3" value="200">
           <span class="summary text-red-darker">万元</span>
         </div>
       </div>
@@ -56,7 +56,7 @@
         <h4 class="container-title">交费年期
           <small>(年)</small>
         </h4>
-        <select id="payment-type" class="form-control"></select>
+        <select id="classic-year" class="form-control"></select>
       </div>
 
       <div class="container">
@@ -84,10 +84,10 @@
         <div class="divider"></div>
 
         <p class="rst-info text-red-darker">
-          年交保费：<span id="amount-per-year" class="rst-price">000,000.00</span> 元
+          年交保费：<span id="classic-fee-per-year" class="rst-price">99,999.99</span> 元
         </p>
         <p class="rst-info text-red-darker">
-          共<span class="text-indent"></span>计：<span class="rst-price" id="amount-total">000,000.00</span> 元
+          共<span class="text-indent"></span>计：<span class="rst-price" id="classic-fee-total">99,999.99</span> 元
         </p>
 
       </div>
@@ -111,7 +111,7 @@
         </h3>
         <h4 class="text-red">保险金额+累计（中档）增值红利</h4>
         <h2 class="value text-red-darker">
-            <span id="account-value">000,000,000</span>
+          <span id="classic-value">3,123,123</span>
           <small>元</small>
         </h2>
       </div>
@@ -153,7 +153,7 @@
 
       <div class="container">
         <h4 class="container-title">转换为年金的年龄</h4>
-        <select id="convert-age" class="form-control"></select>
+        <select id="future-age" class="form-control"></select>
       </div>
 
       <div class="container">
@@ -192,7 +192,7 @@
 
         <p class="rst-info text-red-darker text-xs-center">
           守富未来初算年金金额<br>
-          <span id="initial-annuity-amount" class="rst-price">99,999.99</span> 元/年
+          <span id="future-amount" class="rst-price">99,999.99</span> 元/年
         </p>
 
       </div>
