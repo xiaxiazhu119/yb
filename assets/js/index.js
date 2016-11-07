@@ -28,11 +28,6 @@
 
     var numReg = new RegExp("^[0-9]*$");
 
-    initSltBtn('.gender-slt');
-    var $genderSlt = $('.gender-slt');
-    $genderSlt.show().height($genderSlt.width());
-    $('.gender-slt:even').click();
-
     var convertAgeOffset = 10;
 
     var convertAgeRange = {
@@ -86,6 +81,10 @@
 
     initSltBtn('.btn-age', bonusAgeSltEvent);
 
+    initSltBtn('.gender-slt', genderSltEvent);
+    var $genderSlt = $('.gender-slt');
+    $genderSlt.show().height($genderSlt.width());
+    $('.gender-slt:even').click();
 
     $('.mask,.custom-close').on('click', function () {
       hideModal();
@@ -114,7 +113,7 @@
       var age   = Number($('#age').val());
       overRange = (convertAgeRange.min - age) < convertAgeOffset;
       if (overRange) {
-        convertAgeStart = classicAge + convertAgeOffset;
+        convertAgeStart = age + convertAgeOffset;
       }
 
       var checkConvertAge = function () {
@@ -126,7 +125,7 @@
         }
       };
 
-      initConvertAge();
+      // initConvertAge();
 
       scrollPage($this, checkConvertAge);
     });
@@ -338,7 +337,7 @@
 
         //lastYearCashBonus = Math.round(lastYearCashBonus);
 
-        console.log('age:', c, ' currentYearCashBonus:', currentYearCashBonus, ' lastYearCashBonus:', lastYearCashBonus);
+        console.log('age:', c, ' 当年度现金红利:', currentYearCashBonus, ' 累积现金红利:', lastYearCashBonus);
         c++;
       }
 
@@ -397,6 +396,15 @@
     //
     //
 
+
+    /*************************************************************************************************
+     * 性别选择事件
+     ************************************************************************************************/
+    function genderSltEvent(target) {
+      var gender = target.data('gender');
+      $('.gender-slt-' + gender).click();
+    }
+
     /*************************************************************************************************
      * 红利演示中 年龄选择事件
      ************************************************************************************************/
@@ -440,7 +448,8 @@
         } else {
           $typeOpts.last().show();
         }
-      });
+        initConvertAge();
+      }).change();
     }
 
 
